@@ -2,9 +2,9 @@
 
 A football Manager App is an app that help football manager to manage their team. It gives them manager ability to add players by importing .cvs file and can also deleted or updated a team.
 
-# You can checkout live here [Football Manager](https://62ad1c48e486900fb177ad32--serene-kataifi-e8d8ea.netlify.app/)
+# You can checkout live here [Football Manager](https://jokanola-yusuff-football-manager.netlify.app/)
 
-## Features
+# Features
 
 # Roster Details (Roster Table, Search and Team Name)
 
@@ -35,7 +35,7 @@ NB: Conditions for Formation overview
    => Forward, of which **three** are required;
 3. There aren’t too many starters;
 
-## Stacks
+# Stacks
 
 - Reactjs(Nextjs although nextjs doesn't effect but was used because I thought there will be routing)
 - Styled-Component and evergreen-ui
@@ -45,7 +45,7 @@ NB: check below to see the details of how to start the project.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Getting Started
 
 First, run the development server:
 
