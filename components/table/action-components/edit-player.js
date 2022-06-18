@@ -65,7 +65,12 @@ export const EditPlayer = ({ handleClose, id }) => {
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
-              <AppInput placeholder="Jokanola" width="100%" {...field} />
+              <AppInput
+                disabled
+                placeholder="Jokanola"
+                width="100%"
+                {...field}
+              />
             )}
           />
         </Pane>
