@@ -9,7 +9,7 @@ import { AppFilePicker } from "../file-picker/file-picker";
 import { TableHeader, TableStyle, TableRow } from "../table/table.style";
 import { UPLOAD_FILE } from "../../store/actions/actions-type";
 
-const Importer = () => {
+const Importer = ({ showButton }) => {
   const [isShown, setIsShown] = useState(false);
   const [csvData, setCsvData] = useState([]);
   const { players, starters, dispatcher } = useContext(PlayerContext);
@@ -29,7 +29,12 @@ const Importer = () => {
 
   return (
     <Pane>
-      <Modal title="Import" show={isShown} onClose={() => setIsShown(false)}>
+      <Modal
+        title="Import"
+        show={isShown}
+        onClose={() => setIsShown(false)}
+        showButton
+      >
         <Pane width="800px" height="400px">
           <AppFilePicker setCsvData={setCsvData} />
 
@@ -79,7 +84,7 @@ const Importer = () => {
         >
           <AppButton
             variant="primary"
-            brand
+            brand={true.toString()}
             disabled={csvData.length <= 0}
             onClick={handleImport}
           >
@@ -88,12 +93,23 @@ const Importer = () => {
         </Pane>
       </Modal>
 
-      <AppButton
-        variant={isPlayerExist ? "secondary" : "primary"}
-        onClick={() => setIsShown(true)}
-      >
-        {isPlayerExist ? "Re-import" : "Import"}
-      </AppButton>
+      {showButton ? (
+        <AppButton
+          variant={isPlayerExist ? "secondary" : "primary"}
+          onClick={() => setIsShown(true)}
+        >
+          {isPlayerExist ? "Re-import" : "Import team"}
+        </AppButton>
+      ) : (
+        <AppText
+          variant="heading"
+          brand={true.toString()}
+          onClick={() => setIsShown(true)}
+          cursor="pointer"
+        >
+          import team
+        </AppText>
+      )}
     </Pane>
   );
 };

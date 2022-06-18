@@ -1,10 +1,9 @@
 import { CrossIcon } from "evergreen-ui";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { AppButton } from "../button/button";
 import { AppText } from "../custom-text/text";
 import { HeaderContainer } from "../header/header.style";
-import { Divider } from "../player-details-card/player-details-card-style";
 import {
   StyledModalOverlay,
   StyledModal,

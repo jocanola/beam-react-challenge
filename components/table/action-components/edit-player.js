@@ -9,57 +9,64 @@ import { position } from "../../../util/data/positions";
 import { PlayerContext } from "../../../store/contexts/context";
 import { EDIT_PLAYER } from "../../../store/actions/actions-type";
 import { RadioComponent } from "../../radio-button/radio-button.style";
+import { isEdited } from "../../../util/functions/helpers-functions";
+
+import { useForm, Controller } from "react-hook-form";
 
 export const EditPlayer = ({ handleClose, id }) => {
   const { players, dispatcher } = useContext(PlayerContext);
   const player = players?.find((item) => item["Jersey Number"] === id);
+  const CountryFlag = findFlagUrlByNationality(player["Nationality"]);
 
-  const [pName, setPName] = useState(player["Player Name"]);
-  const [pJerseyNo, setPJerseyNo] = useState(player["Jersey Number"]);
-  const [Weight, setPWeight] = useState(player["Weight"]);
-  const [Height, setPHeight] = useState(player["Height"]);
-  const [Nationality, setPNationality] = useState(player["Nationality"]);
-  const [Position, setPPosition] = useState(player["Position"]);
-  const [Starter, setPStarter] = useState(player["Starter"]);
-  const countryFlag = findFlagUrlByNationality(Nationality);
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    getValues,
+    formState: { isDirty },
+  } = useForm({
+    defaultValues: {
+      "Player Name": player["Player Name"],
+      "Jersey Number": player["Jersey Number"],
+      Weight: player["Weight"],
+      Height: player["Height"],
+      Nationality: player["Nationality"],
+      Position: player["Position"],
+      "Flag Image": CountryFlag,
+      Starter: player["Starter"],
+    },
+  });
 
-  const data = {
-    "Player Name": pName,
-    "Jersey Number": pJerseyNo,
-    Weight,
-    Height,
-    Nationality,
-    Position,
-    "Flag Image": countryFlag,
-    Starter,
-  };
-
-  const newData = { ...player, ...data };
-
-  console.log(newData);
-  const handleSaveEdit = () => {
-    dispatcher({ type: EDIT_PLAYER, data: newData });
+  const handleSaveEdit = (data) => {
+    const newCountryFlag = findFlagUrlByNationality(data["Nationality"]);
+    const newPlayerData = { ...player, ...data, "Flag Image": newCountryFlag };
+    dispatcher({ type: EDIT_PLAYER, data: newPlayerData });
     handleClose();
   };
+
   return (
     <Pane width={480} display="flex" flexDirection="column" gap={5}>
       <Pane display="flex" alignItems="center" gap={15} cursor="pointer">
         <Pane>
           <AppText variant="normal">Player name</AppText>
-          <AppInput
-            placeholder="Jokanola"
-            width="274px"
-            defaultValue={player["Player Name"]}
-            onChange={(e) => setPName(e.target.value)}
+          <Controller
+            name="Player Name"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <AppInput placeholder="Jokanola" width="274px" {...field} />
+            )}
           />
         </Pane>
         <Pane>
           <AppText variant="normal">Jersey Number</AppText>
-          <AppInput
-            placeholder="Jokanola"
-            width="100%"
-            defaultValue={player["Jersey Number"]}
-            onChange={(e) => setPJerseyNo(e.target.value)}
+          <Controller
+            name="Jersey Number"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <AppInput placeholder="Jokanola" width="100%" {...field} />
+            )}
           />
         </Pane>
       </Pane>
@@ -67,20 +74,24 @@ export const EditPlayer = ({ handleClose, id }) => {
       <Pane display="flex" alignItems="center" gap={15} cursor="pointer">
         <Pane flex="0.5">
           <AppText variant="normal">Weight</AppText>
-          <AppInput
-            placeholder="Jokanola"
-            width="100%"
-            defaultValue={player["Weight"]}
-            onChange={(e) => setPWeight(e.target.value)}
+          <Controller
+            name="Weight"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <AppInput placeholder="Jokanola" width="100%" {...field} />
+            )}
           />
         </Pane>
         <Pane flex="0.5">
           <AppText variant="normal">Height</AppText>
-          <AppInput
-            placeholder="Jokanola"
-            width="100%"
-            defaultValue={player["Height"]}
-            onChange={(e) => setPHeight(e.target.value)}
+          <Controller
+            name="Height"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <AppInput placeholder="Jokanola" width="100%" {...field} />
+            )}
           />
         </Pane>
       </Pane>
@@ -93,32 +104,46 @@ export const EditPlayer = ({ handleClose, id }) => {
       >
         <Pane flex="1" width="100%">
           <AppText variant="normal">Nationality</AppText>
-          <AppInputSelect
-            data={countries}
-            defaultValue={player["Nationality"]}
-            handleChange={setPNationality}
-            value={Nationality}
+          <Controller
+            name="Nationality"
+            control={control}
+            render={({ field }) => (
+              <AppInputSelect data={countries} field={field} />
+            )}
           />
         </Pane>
         <Pane flex="1" width="100%">
           <AppText variant="normal">Position</AppText>
-          <AppInputSelect
-            data={position}
-            defaultValue={player["Position"]}
-            handleChange={setPPosition}
-            value={Position}
+          <Controller
+            name="Position"
+            control={control}
+            render={({ field }) => (
+              <AppInputSelect data={position} field={field} />
+            )}
           />
         </Pane>
       </Pane>
-      <RadioComponent
-        defaultValue={player["Starter"]}
-        setPStarter={setPStarter}
+      <Controller
+        name="Starter"
+        control={control}
+        render={({ field }) => (
+          <RadioComponent
+            defaultValue={getValues("Starter")}
+            setValue={setValue}
+          />
+        )}
       />
+
       <Pane display="flex" justifyContent="flex-end" gap={15}>
         <AppButton variant="secondary" onClick={handleClose}>
           Cancel
         </AppButton>
-        <AppButton variant="primary" brand onClick={handleSaveEdit}>
+        <AppButton
+          variant="primary"
+          brand={true.toString()}
+          onClick={handleSubmit(handleSaveEdit)}
+          disabled={!isDirty}
+        >
           Edit Player
         </AppButton>
       </Pane>

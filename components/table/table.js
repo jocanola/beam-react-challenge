@@ -17,8 +17,8 @@ import { DELETE_PLAYER } from "../../store/actions/actions-type";
 import Importer from "../importer/importer";
 import { PlayerAction } from "./action-components/player-action";
 import { ConfirmAlert } from "./action-components/confirm-delete";
-import { EditPlayer } from "./action-components/edit-player";
 import { headers } from "../../util/data/positions";
+import { EditPlayer, NewEditPlayer } from "./action-components/edit-player";
 
 export const TableComp = () => {
   const { dispatcher, players, filteredPlayer } = useContext(PlayerContext);

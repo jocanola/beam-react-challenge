@@ -12,15 +12,11 @@ const SelectStyle = styled(SelectField).attrs(({ theme }) => ({
   height: 44px;
   border: 1px solid #494949;
 `;
-export const AppInputSelect = ({ data, defaultValue, handleChange, value }) => {
+export const AppInputSelect = ({ data, field }) => {
   return (
-    <SelectStyle value={value} onChange={(e) => handleChange(e.target.value)}>
+    <SelectStyle {...field}>
       {data?.map((item) => {
-        return (
-          <option className="select-field" value={item.demonym} selected>
-            {item.demonym}
-          </option>
-        );
+        return <option className="select-field">{item.demonym}</option>;
       })}
     </SelectStyle>
   );

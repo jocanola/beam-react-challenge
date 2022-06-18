@@ -5,7 +5,7 @@ import { FilePickerContainer } from "./file-picker.style";
 import papa from "papaparse";
 import { PlayerContext } from "../../store/contexts/context";
 import * as actions from "../../store/actions/actions-type";
-import { sortFile } from "../../util/functions/helpers-functions";
+import { isEmptyCellFile } from "../../util/functions/helpers-functions";
 import { AppText } from "../custom-text/text";
 import { Text } from "evergreen-ui";
 
@@ -27,7 +27,7 @@ export const AppFilePicker = ({ isDisabled, setCsvData }) => {
       aborted: true,
       complete(results) {
         const { data, meta } = results;
-        if (sortFile(data).includes(1)) {
+        if (isEmptyCellFile(data).includes(1)) {
           setIsError(true);
           setCsvData([]);
         } else {
@@ -57,7 +57,10 @@ export const AppFilePicker = ({ isDisabled, setCsvData }) => {
         </AppButton>
       </FilePickerContainer>
       {!isError ? (
-        <AppText variant="mute">file must be in .csv format</AppText>
+        <>
+          <AppText variant="mute">file must be in .csv format</AppText>
+          <br />
+        </>
       ) : (
         <>
           <Text fontSize={14} fontWeight={500} color="red">

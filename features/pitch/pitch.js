@@ -6,11 +6,16 @@ import { PlayerCardDetail } from "../../components/player-details-card/player-de
 import { PlayerCab } from "../../components/player-indicator/player-indicator";
 import { Field, PickContainer, WarningContainer } from "./pitch.style";
 import { Header } from "../../components/header/header";
-import { getPlayerByPosition } from "../../util/custom-hooks/team-by-position";
-import Modal from "../../components/dialog/custom-dialog";
+import { getPlayerByPosition } from "../../util/functions/team-by-position";
 
 export const Pitch = ({ starters }) => {
-  const [currentPlay, setCurrentPlay] = useState(1);
+  const currentGoalKeeper = starters?.find(
+    (item) => item.Position === "Goalkeeper" && item.Starter === "Yes"
+  );
+
+  const [currentPlay, setCurrentPlay] = useState(
+    currentGoalKeeper ? currentGoalKeeper["Jersey Number"] : ""
+  );
   const [show, setShow] = useState(false);
   const [errorMsg, setErrorMsg] = useState({
     err: "",
@@ -29,12 +34,11 @@ export const Pitch = ({ starters }) => {
   // const {play}
   const showPlayDetail = (id) => setCurrentPlay(id);
   const checkpositionInfo =
-    totalGoalKeeper !== 1 &&
-    totalDefenders !== 4 &&
-    totalForwards !== 3 &&
-    totalMidfielders !== 3;
+    totalGoalKeeper === 1 &&
+    totalDefenders === 4 &&
+    totalForwards === 3 &&
+    totalMidfielders === 3;
   useEffect(() => {
-    console.log(checkpositionInfo);
     if (starters.length <= 0) {
       setErrorMsg({
         err: "No player data found",
@@ -43,12 +47,14 @@ export const Pitch = ({ starters }) => {
       });
     }
 
-    if (starters.length !== 11 && !checkpositionInfo) {
-      setErrorMsg({
-        err: "Not enough starters",
-        desc: "Your team doesn’t have enough starters  for one or more of the positions in the 4-3-3 formation",
-        isError: true,
-      });
+    if (starters.length <= 11 && starters.length > 0) {
+      if (!checkpositionInfo) {
+        setErrorMsg({
+          err: "Not enough starters",
+          desc: "Your team doesn’t have enough starters  for one or more of the positions in the 4-3-3 formation",
+          isError: true,
+        });
+      }
     }
     if (starters.length > 11) {
       setErrorMsg({
@@ -57,15 +63,12 @@ export const Pitch = ({ starters }) => {
         isError: true,
       });
     }
-    console.log(
-      totalForwards + totalDefenders + totalMidfielders + totalGoalKeeper
-    );
   }, [starters, checkpositionInfo]);
 
   return (
     <>
       {errorMsg.isError && (
-        <WarningContainer showHeader={false} show={show}>
+        <WarningContainer show={show}>
           <Pane width="379px" padding="15px">
             <WarningSignIcon color="warning" marginRight={16} />
             <AppText variant="heading">{errorMsg.err}</AppText>
@@ -105,7 +108,7 @@ export const Pitch = ({ starters }) => {
           )}
         </Field>
         <PlayerCardDetail
-          currentPlay={currentPlay}
+          currentPlayerJerseyNo={currentPlay}
           isError={errorMsg.isError}
         />
       </PickContainer>

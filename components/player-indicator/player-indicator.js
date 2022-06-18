@@ -6,7 +6,7 @@ export const PlayerCab = ({ item, showPlayDetail }) => {
   return (
     // jeyseyNo is used as unique Id
     <CabContainer onClick={() => showPlayDetail(item["Jersey Number"])}>
-      <JeyseyNo jeyseyNo={item["Jersey Number"]}>
+      <JeyseyNo jeyseyNo={item["Position"] === "Goalkeeper"}>
         {item["Jersey Number"]}
       </JeyseyNo>
       <AppText variant="heading" fontSize={14} textAlign="center">

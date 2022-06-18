@@ -24,7 +24,7 @@ export const Header = ({ isPitch }) => {
   return (
     <HeaderContainer>
       <Pane>
-        <AppText variant="normal" brand>
+        <AppText variant="normal" brand={true.toString()}>
           Roster Details
         </AppText>
         <br />
@@ -40,7 +40,7 @@ export const Header = ({ isPitch }) => {
             <AppButton
               type="submit"
               variant="primary"
-              brand
+              brand={true.toString()}
               onClick={() => {
                 onSubmit();
                 setIsShown(false);
@@ -57,7 +57,7 @@ export const Header = ({ isPitch }) => {
       {!isPitch && (
         <Pane display="flex" gap="8px">
           <Search />
-          <Importer />
+          <Importer showButton />
         </Pane>
       )}
     </HeaderContainer>

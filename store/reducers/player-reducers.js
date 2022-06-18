@@ -18,9 +18,12 @@ export const reducer = (state = initialState, action) => {
       };
 
     case ACTION_TYPES.DELETE_PLAYER: {
-      const filteredPlayer = state.players
-        .filter((item) => item["Jersey Number"] !== action.id)
-        .sort((a, b) => a["Jersey Number"]);
+      //filtering player to using Jersey Number(as unique id for each player)
+      const filteredPlayer = state.players.filter(
+        (item) => item["Jersey Number"] !== action.id
+      );
+      //filtering player by starter
+
       const getStarter = filteredPlayer.filter(
         (item) => item.Starter === "Yes"
       );
@@ -33,18 +36,22 @@ export const reducer = (state = initialState, action) => {
     }
     case ACTION_TYPES.EDIT_PLAYER: {
       const players = state.players;
+      // finding index of player to be deleted
       const playerIndex = state.players.findIndex(
         (item) => item["Jersey Number"] === action.data["Jersey Number"]
       );
+      // updating the changed player data with defaultData
       const updatedPlayer = {
         ...players[playerIndex],
         ...action.data,
       };
+      // Putting the new player data in the formal index
       const newUpdatedPlayers = [
         ...players.slice(0, playerIndex),
         updatedPlayer,
         ...players.slice(playerIndex + 1),
       ];
+
       const getStarter = newUpdatedPlayers.filter(
         (item) => item.Starter === "Yes"
       );
@@ -56,7 +63,9 @@ export const reducer = (state = initialState, action) => {
         filteredPlayer: [...newUpdatedPlayers],
       };
     }
+
     case ACTION_TYPES.ON_SEARCH_PLAYER: {
+      // filtering the teams by their Player's Name, Position, and Nationality with case insensitive
       const filteredPlayer = state.players.filter(
         (item) =>
           item["Player Name"]

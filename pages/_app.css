@@ -9,8 +9,14 @@ body::-webkit-scrollbar {
   width: 0px;
   background: transparent; /* make scrollbar transparent */
 }
-
+html::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+div::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
 .ub-bg-clr_white {
   background-color: #2d2d2d !important;
 }
-

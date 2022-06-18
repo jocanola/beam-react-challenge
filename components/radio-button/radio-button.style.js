@@ -36,7 +36,7 @@ const RadioBtn = styled.label`
 import React, { useState } from "react";
 import { Pane } from "evergreen-ui";
 
-export const RadioComponent = ({ defaultValue, setPStarter }) => {
+export const RadioComponent = ({ defaultValue, setValue }) => {
   const [options] = useState([
     { label: "Yes", value: true },
     { label: "No", value: false },
@@ -51,8 +51,9 @@ export const RadioComponent = ({ defaultValue, setPStarter }) => {
               name="starter"
               defaultChecked={label === defaultValue}
               onChange={(e) => {
-                setPStarter(label);
-                console.log(label);
+                setValue("Starter", label, {
+                  shouldDirty: true,
+                });
               }}
             />
             <span>{label}</span>

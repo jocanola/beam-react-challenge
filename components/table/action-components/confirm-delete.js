@@ -2,10 +2,7 @@ import { Pane } from "evergreen-ui";
 import { AppButton } from "../../button/button";
 import { AppText } from "../../custom-text/text";
 
-export const ConfirmAlert = ({
-  handleDeletePlayer,
-  handleClose,
-}) => (
+export const ConfirmAlert = ({ handleDeletePlayer, handleClose }) => (
   <Pane width={233} display="flex" flexDirection="column" gap={15}>
     <Pane>
       <AppText variant="normal">This action cannot be undone.</AppText>
@@ -14,7 +11,11 @@ export const ConfirmAlert = ({
       <AppButton variant="secondary" onClick={handleClose}>
         Cancel
       </AppButton>
-      <AppButton variant="primary" brand onClick={handleDeletePlayer}>
+      <AppButton
+        variant="primary"
+        brand={true.toString()}
+        onClick={handleDeletePlayer}
+      >
         Delete
       </AppButton>
     </Pane>

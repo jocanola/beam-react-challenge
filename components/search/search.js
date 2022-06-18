@@ -45,7 +45,7 @@ export const Search = () => {
           }
         }}
       />
-
+      
       {value && value === initialValue && (
         <span
           onClick={() => {
@@ -59,7 +59,7 @@ export const Search = () => {
       {value && value !== initialValue && (
         <AppText
           variant="normal"
-          brand
+          brand={true.toString()}
           onClick={(e) => {
             onSearch();
           }}

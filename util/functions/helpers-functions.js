@@ -1,4 +1,4 @@
-export function sortFile(data) {
+export function isEmptyCellFile(data) {
   let getNulls = [];
   data.forEach(function (v, i) {
     if (
@@ -28,4 +28,21 @@ export function fileSummary(data) {
   };
 
   return teams;
+}
+
+export function isEdited(oldData, newData) {
+  const oldDataValue = Object.values(oldData);
+  const newDataValue = Object.values(newData);
+
+  let n = oldDataValue.length;
+  let m = newDataValue.length;
+  if (n != m) return false;
+  oldDataValue.sort();
+  newDataValue.sort();
+  console.log("oldDataValue", oldDataValue);
+  console.log("newDataValue", newDataValue);
+
+  for (let i = 0; i < n; i++)
+    if (oldDataValue[i] != newDataValue[i]) return false;
+  return true;
 }

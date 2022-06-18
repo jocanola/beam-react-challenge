@@ -12,27 +12,29 @@ import {
   PlayersName,
 } from "./player-details-card-style";
 
-export const PlayerCardDetail = ({ currentPlay, isError }) => {
+export const PlayerCardDetail = ({ currentPlayerJerseyNo, isError }) => {
   const { starters } = useContext(PlayerContext);
-  console.log(starters);
-  const playerDetails = starters.find(
-    (item) => item["Jersey Number"] === currentPlay
+  const currentPlayer = starters?.find(
+    (item) => item["Jersey Number"] === currentPlayerJerseyNo
   );
-
   return (
     <PlayerCard>
-      {!isError && playerDetails !== undefined && (
+      {!isError && currentPlayer !== undefined && (
         <>
-          <Frame image={playerDetails["Player Image"]}>
-            <PlayerNo>{playerDetails["Jersey Number"]} </PlayerNo>
+          <Frame image={currentPlayer["Player Image"]}>
+            <PlayerNo>{currentPlayer["Jersey Number"]} </PlayerNo>
 
             <PlayersName>
               <AppText variant="heading" fontSize="24px" LineHeight="27px">
-                {playerDetails["Player Name"]}
+                {currentPlayer["Player Name"]}
               </AppText>
               <br />
-              <AppText variant="heading" fontSize="18px" brand>
-                {playerDetails["Position"]}
+              <AppText
+                variant="heading"
+                fontSize="18px"
+                brand={true.toString()}
+              >
+                {currentPlayer["Position"]}
               </AppText>
             </PlayersName>
           </Frame>
@@ -40,53 +42,73 @@ export const PlayerCardDetail = ({ currentPlay, isError }) => {
             <PlayerInfo>
               <AppText variant="normal">Height</AppText>
 
-              <AppText variant="heading">{playerDetails["Height"]}</AppText>
+              <AppText variant="heading">{currentPlayer["Height"]}</AppText>
             </PlayerInfo>
             <PlayerInfo>
               <AppText variant="normal">Weight</AppText>
 
-              <AppText variant="heading">{playerDetails["Weight"]}</AppText>
+              <AppText variant="heading">{currentPlayer["Weight"]}</AppText>
             </PlayerInfo>
             <PlayerInfo>
               <AppText variant="normal">Nationality</AppText>
 
               <AppText variant="heading">
-                {playerDetails["Nationality"]}
+                {currentPlayer["Nationality"]}
               </AppText>
             </PlayerInfo>
           </Pane>
           <Divider />
           <PlayerRecord>
             <PlayerInfo>
-              <AppText variant="heading" fontSize="36px" brand>
-                {playerDetails["Appearances"]}
+              <AppText
+                variant="heading"
+                fontSize="36px"
+                brand={true.toString()}
+              >
+                {currentPlayer["Appearances"]}
               </AppText>
               <AppText variant="normal">Appearances</AppText>
             </PlayerInfo>
             <PlayerInfo>
-              <AppText variant="heading" fontSize="36px" brand>
-                {playerDetails["Minutes Played"]}
+              <AppText
+                variant="heading"
+                fontSize="36px"
+                brand={true.toString()}
+              >
+                {currentPlayer["Minutes Played"]}
               </AppText>
               <AppText variant="normal">Minutes Played</AppText>
             </PlayerInfo>
             <PlayerInfo>
-              <AppText variant="heading" fontSize="36px" brand>
-                {currentPlay === 1
-                  ? playerDetails["Clean Sheets"]
-                  : playerDetails["Goals "]}
+              <AppText
+                variant="heading"
+                fontSize="36px"
+                brand={true.toString()}
+              >
+                {currentPlayer["Position"] === "Goalkeeper"
+                  ? currentPlayer["Clean Sheets"]
+                  : currentPlayer["Goals "]}
               </AppText>
               <AppText variant="normal">
-                {currentPlay === 1 ? "Clean sheets" : "Goals"}
+                {currentPlayer["Position"] === "Goalkeeper"
+                  ? "Clean sheets"
+                  : "Goals"}
               </AppText>
             </PlayerInfo>
             <PlayerInfo>
-              <AppText variant="heading" fontSize="36px" brand>
-                {currentPlay === 1
-                  ? playerDetails["Saves"]
-                  : playerDetails["Assists"]}
+              <AppText
+                variant="heading"
+                fontSize="36px"
+                brand={true.toString()}
+              >
+                {currentPlayer["Position"] === "Goalkeeper"
+                  ? currentPlayer["Saves"]
+                  : currentPlayer["Assists"]}
               </AppText>
               <AppText variant="normal">
-                {currentPlay === 1 ? "Saves" : "Assists"}
+                {currentPlayer["Position"] === "Goalkeeper"
+                  ? "Saves"
+                  : "Assists"}
               </AppText>
             </PlayerInfo>
           </PlayerRecord>

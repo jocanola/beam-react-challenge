@@ -11,12 +11,12 @@ export const JeyseyNo = styled(Pane)`
   width: 32px;
   height: 32px;
   background-color: ${({ theme, jeyseyNo }) =>
-    jeyseyNo == 1 ? theme.ui.primary : theme.neutral.bg2};
+    jeyseyNo ? theme.ui.primary : theme.neutral.bg2};
   border-radius: 50px;
   color: ${({ theme }) => theme.text.normal};
   border: ${({ theme, jeyseyNo }) =>
-    jeyseyNo == 1 ? "none" : `2px solid ${theme.text.number}`};
+    jeyseyNo ? "none" : `2px solid ${theme.text.number}`};
   text-align: center;
-  padding-top: 2px;
+  padding-top: 1px;
   margin: 0 auto;
 `;
