@@ -1,12 +1,12 @@
-## Football Manager App
+# Football Manager App
 
 A football Manager App is an app that help football manager to manage their team. It gives them manager ability to add players by importing .cvs file and can also deleted or updated a team.
 
-# You can checkout live here [Football Manager](https://jokanola-yusuff-football-manager.netlify.app/)
+## You can checkout live here [Football Manager](https://jokanola-yusuff-football-manager.netlify.app/)
 
-# Features
+## Features
 
-# Roster Details (Roster Table, Search and Team Name)
+## Roster Details (Roster Table, Search and Team Name)
 
 - Importing and Re-importing teams using .csv file format
   NB :- Error will shown if the file contains empty cell.
@@ -17,7 +17,7 @@ A football Manager App is an app that help football manager to manage their team
 
 - Deleting a player, user can delete any player.
 
-# Formation Overview (Pitch overview and Player Details)
+## Formation Overview (Pitch overview and Player Details)
 
 - The 4-3-3 formation will display on the field.
   NB: You can only see the formation if the .csv contains starters with 1 goalkeeper and 4-3-3 defenders, midfielders and forwards respectively if not an appropriate error will display.
@@ -35,7 +35,7 @@ NB: Conditions for Formation overview
    => Forward, of which **three** are required;
 3. There aren’t too many starters;
 
-# Stacks
+## Stacks
 
 - Reactjs(Nextjs although nextjs doesn't effect but was used because I thought there will be routing)
 - Styled-Component and evergreen-ui
